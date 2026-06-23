@@ -1,0 +1,78 @@
+# --- Ambientes e Dependências ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Dados e Cache de Pipeline ---
+data/
+datasets/
+*.csv
+*.parquet
+*.json
+*.avro
+*.sqlite
+*.db
+*.log
+*.tmp
+
+# Logs
+*.log
+logs/
+*.csv.log
+
+# --- Configurações de Ambiente (Segurança) ---
+.env
+.env.*
+!.env.example
+
+# --- Ferramentas de Desenvolvimento e IDEs ---
+.vscode/
+.idea/
+.DS_Store
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+dist/
+build/
+*.egg-info/
+
+# --- Artefatos de Notebooks ---
+.ipynb_checkpoints/
+*.ipynb_metadata
+
+# --- Sistema Operacional ---
+Thumbs.db
+Desktop.ini
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# Docker
+Dockerfile.local
+docker-compose.override.yml
+.docker-ignore
+/volumes/
+
+# Databases
+*.sqlite3
+*.db
+*.mdb
+*.accdb
+
+# Big Data/Spark
+metastore_db/
+derby.log
+warehouse/
+spark-warehouse/
+checkpoint/
+
+# Notas
+notes/
