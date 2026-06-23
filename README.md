@@ -1,70 +1,42 @@
-# Pipeline ETL Serverless: Monitoramento SRE
+# Pipeline ETL Serveless SRE
 
-Este projeto consiste em um **Pipeline de Engenharia de Dados Serverless** na AWS, focado em resiliência, observabilidade e automação total via Infraestrutura como Código (IaC). O objetivo principal é monitorar a disponibilidade e latência de APIs críticas de terceiros, garantindo respostas rápidas para a equipe de **Site Reliability Engineering (SRE)**.
+Este projeto consiste em um **Pipeline de Engenharia de Dados Serverless na AWS**, focado em resiliência, automação total via Infraestrutura como Código (IaC) e alta observabilidade. O objetivo principal é implementar um sistema de monitoramento de SLA de entrega em tempo real para a Olist, permitindo a detecção proativa de gargalos logísticos.
 
-## 🎯 Objetivos do Projeto
-*   **Coleta Automatizada:** Captura de telemetria de APIs em intervalos regulares via Amazon EventBridge.
-*   **Data Lake em Camadas:** Armazenamento imutável em camada **Raw (Bronze)** e processamento analítico para a camada **Silver (Gold)** em formato Parquet.
-*   **Observabilidade:** Notificações em tempo real via Amazon SNS em caso de falhas ou latência acima do SLA.
-*   **Eficiência de Custo:** Arquitetura 100% Serverless, visando custo zero ou próximo de zero dentro do AWS Free Tier.
+## 🎯 Objetivo de Negócio
+Atualmente, a visibilidade da performance logística é limitada por um processamento batch diário. Esta solução propõe:
+*   Reduzir o tempo de detecção de problemas em rotas críticas.
+*   Garantir a integridade dos dados através de *schema enforcement*.
+*   Otimizar custos operacionais utilizando uma arquitetura 100% serverless.
 
-## 🛠️ Stack Tecnológica
-*   **Linguagem:** Python 3.14+ (Pandas para processamento).
-*   **Infraestrutura (IaC):** Terraform.
-*   **Cloud Provider (AWS):** Lambda, S3, EventBridge, Athena e SNS.
-*   **Gerenciador de Dependências:** Poetry.
-*   **Orquestração de Tarefas:** Makefile.
+## 🛠️ Tecnologias e Ferramentas
+*   **Linguagem:** Python 3.14+.
+*   **Infraestrutura:** Terraform (IaC).
+*   **Cloud (AWS):** S3, Lambda, Athena, SNS, Step Functions e EventBridge.
+*   **Processamento & Qualidade:** Pandas, PyArrow, Pandera e Pytest.
+*   **Padronização:** Ruff, Black e Pyright.
 
-## 📂 Estrutura do Repositório
-De acordo com a organização do projeto:
-*   `infra/`: Arquivos de configuração do Terraform para provisionamento AWS.
-*   `src/`: Código-fonte da aplicação (Lambdas de ingestão e processamento).
-*   `tests/`: Suíte de testes unitários com Pytest.
-*   `Makefile`: Comandos utilitários para desenvolvimento e deploy.
-*   `pyproject.toml`: Configurações de dependências e ferramentas de linting.
+## 🏗️ Arquitetura (Medallion)
+O pipeline organiza os dados em três camadas no S3:
+1.  **Bronze (Raw):** Dados brutos e imutáveis do dataset Olist (CSV).
+2.  **Silver (Trusted):** Dados limpos, tipados e convertidos para o formato Parquet.
+3.  **Gold (Curated):** Data Marts com métricas de negócio focadas em SLA por região.
 
-## 🚀 Como Começar
+## 🚀 Como Executar
+O projeto utiliza um `Makefile` para centralizar os comandos principais:
 
-### Pré-requisitos
-*   Python 3.14+
-*   Poetry
-*   Terraform
-*   AWS CLI configurado
+*   **Instalar dependências:** `make sync`.
+*   **Formatar código:** `make format`.
+*   **Executar Lint/Tipagem:** `make lint`.
+*   **Rodar testes:** `make test`.
+*   **Planejar infraestrutura (Terraform):** `make tf-plan`.
+*   **Executar Pipeline de CI completo local:** `make all`.
 
-### Instalação e Desenvolvimento
-O projeto utiliza um `Makefile` para centralizar as tarefas comuns:
-
-1.  **Instalar dependências:**
-    ```bash
-    make sync
-    ```
-2.  **Executar Qualidade de Código (Lint/Format):**
-    ```bash
-    make lint    # Executa Ruff e Pyright
-    make format  # Executa Black
-    ```
-3.  **Executar Testes:**
-    ```bash
-    make test    # Executa Pytest
-    ```
-4.  **Segurança:**
-    ```bash
-    make security # Verifica vulnerabilidades com Safety
-    ```
-
-## 🏗️ Infraestrutura (Terraform)
-Para gerenciar a infraestrutura:
-*   `make tf-init`: Inicializa o Terraform.
-*   `make tf-plan`: Visualiza as mudanças planejadas.
-*   `make tf-apply`: Aplica as mudanças na AWS.
-
-## ✅ Padrões de Qualidade
-Para garantir a robustez em ambiente produtivo, o projeto segue as seguintes diretrizes:
-*   Aderência estrita à **PEP 8**.
-*   **Logging estruturado** e tratamento de exceções em todos os módulos.
-*   Uso de **variáveis de ambiente** para configurações sensíveis.
-*   CI/CD via **GitHub Actions** automatizando linting, testes e validação de infraestrutura a cada push.
+## 📅 Roadmap de Desenvolvimento
+1.  **Infra:** Scripting dos buckets S3, políticas IAM e SQS/SNS com Terraform.
+2.  **Ingestão:** Script para movimentação de arquivos para a camada Bronze.
+3.  **Transformação:** Lambdas para processamento entre camadas (Bronze -> Silver -> Gold).
+4.  **Qualidade:** Validação de schemas e testes de integridade.
+5.  **Automação:** Configuração de CI/CD via GitHub Actions.
 
 ---
 **Autor:** Felipe dos Anjos
-**Licença:** MIT
