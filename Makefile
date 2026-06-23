@@ -2,7 +2,6 @@
 PYTHON := poetry run python
 PYTEST := poetry run pytest
 RUFF   := poetry run ruff
-BLACK  := poetry run black
 PYRIGHT := poetry run pyright
 SAFETY  := poetry run safety
 TERRAFORM := terraform
@@ -20,9 +19,6 @@ lint: ## Executa checagem de código (Ruff e Pyright)
 	$(RUFF) check .
 	@echo "--- Rodando Verificador de Tipos (Pyright) ---"
 	$(PYRIGHT)
-
-format: ## Formata o código com Black
-	$(BLACK) .
 
 test: ## Executa a suíte de testes com Pytest
 	$(PYTEST) tests/
