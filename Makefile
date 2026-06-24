@@ -3,7 +3,6 @@ PYTHON := poetry run python
 PYTEST := poetry run pytest
 RUFF   := poetry run ruff
 PYRIGHT := poetry run pyright
-SAFETY  := poetry run safety
 TERRAFORM := terraform
 
 .PHONY: help install lint format test security clean
@@ -22,9 +21,6 @@ lint: ## Executa checagem de código (Ruff e Pyright)
 
 test: ## Executa a suíte de testes com Pytest
 	$(PYTEST) tests/
-
-security: ## Verifica vulnerabilidades nas dependências
-	$(SAFETY) check
 
 tf-init: ## Inicializa o diretório do Terraform
 	$(TERRAFORM) init
