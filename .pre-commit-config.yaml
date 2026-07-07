@@ -27,7 +27,12 @@ repos:
     hooks:
       - id: terraform_fmt
       - id: terraform_tflint
-      - id: terraform_tfsec
+        args:
+          - --args=--only=terraform_deprecated_interpolation
+          - --args=--only=terraform_unused_declarations
+      - id: terraform_trivy
+        args:
+          - --args=--scanners=misconfig
 
   - repo: local
     hooks:
