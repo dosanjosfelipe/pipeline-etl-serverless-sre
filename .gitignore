@@ -54,6 +54,7 @@ Desktop.ini
 *.tfstate
 *.tfstate.*
 *.tfvars
+tfplan
 
 # Docker
 Dockerfile.local
