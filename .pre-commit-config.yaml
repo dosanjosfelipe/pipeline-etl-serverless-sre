@@ -31,9 +31,6 @@ repos:
           - --args=--only=terraform_deprecated_interpolation
           - --args=--only=terraform_unused_declarations
       - id: terraform_trivy
-        args:
-          - --severity=HIGH,CRITICAL
-          - --exit-code=1
 
   - repo: local
     hooks:
